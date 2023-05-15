@@ -5,6 +5,11 @@ docker build -t student:v1 .
 ### Run the image to create a container (no need to execute this for the exercice, we use docker compose instead)
 docker run --name student-api -d -v ${PWD}:/data/ -p 8000:5000 student:v1
 
+## WEBSITE
+### Write the ../website/docker-compose.yml file
+cd ../website
+docker compose up -d
+
 ## Registry
 ### run the registry
 docker run -d -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true --net student-list_api_network --name registry registry:2
