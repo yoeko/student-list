@@ -45,12 +45,6 @@ docker-registry-ui:
     - REGISTRY_TITLE=registry_ui
 ```
 
-### run the registry ui
-docker run -d -p 8090:80 --net student-list_api_network \
--e REGISTRY_URL=http://registry:5000 \
--e DELETE_IMAGES=true \
--e REGISTRY_TITLE=my_registry \
---name registry-frontend joxit/docker-registry-ui
 
 ### Retag the image to push
 docker tag "IMAGE_ID" localhost:5000/student:v1
