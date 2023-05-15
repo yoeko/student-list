@@ -23,8 +23,27 @@ Then hit the button "List Student"
 
 
 ## Registry
-### run the registry
-docker run -d -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true --net student-list_api_network --name registry registry:2
+### Add registry service in the docker-compose.yml
+```yml
+registry:
+  image: registry:2
+  container_name: registry
+  ports:
+    - '5000:5000'
+  networks:
+    - registry_network
+docker-registry-ui:
+  image: joxit/docker-registry-ui
+  container_name: registry-frontend
+  ports:
+    - '8090:80'
+  networks:
+    - registry_network
+  environment:
+    - REGISTRY_URL=http://registry:5000
+    - DELETE_IMAGES=true
+    - REGISTRY_TITLE=registry_ui
+```
 
 ### run the registry ui
 docker run -d -p 8090:80 --net student-list_api_network \
