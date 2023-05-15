@@ -9,6 +9,19 @@ docker run --name student-api -d -v ${PWD}:/data/ -p 8000:5000 student:v1
 ### Write the ../website/docker-compose.yml file
 cd ../website && docker compose up -d
 
+### Access to the website url
+[http://localhost:8080/](http://localhost:8080/)
+
+### Update the ../index.php file to make the GET request works
+Line 29: 
+Replace
+$url = 'http://<api_ip_or_name:port>/pozos/api/v1.0/get_student_ages';
+by
+$url = 'http://simple_api:5000/pozos/api/v1.0/get_student_ages';
+
+Then hit the button "List Student"
+
+
 ## Registry
 ### run the registry
 docker run -d -p 5000:5000 -e REGISTRY_STORAGE_DELETE_ENABLED=true --net student-list_api_network --name registry registry:2
