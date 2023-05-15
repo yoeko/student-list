@@ -7,8 +7,7 @@ docker run --name student-api -d -v ${PWD}:/data/ -p 8000:5000 student:v1
 
 ## WEBSITE
 ### Write the ../website/docker-compose.yml file
-cd ../website
-docker compose up -d
+cd ../website && docker compose up -d
 
 ## Registry
 ### run the registry
