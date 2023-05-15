@@ -1,0 +1,30 @@
+version: '1.0'
+services:
+  website:
+    image: php:apache
+    container_name: website
+    depends_on:
+      - simple_api
+    ports:
+      - "8080:80"
+    volumes:
+      - './website:/var/www/html'
+    networks:
+      - api_network
+    environment:
+      - USERNAME=toto
+      - PASSWORD=python
+      - api_ip_or_name=simple_api
+      - port=8000
+  simple_api:
+    image: 'student:v1'
+    container_name: simple_api
+    ports:
+      - "8000:5000"
+    volumes:
+      - './simple_api:/data/'
+    networks:
+      - api_network 
+networks:
+  api_network:
+
