@@ -6,7 +6,7 @@ services:
     depends_on:
       - simple_api
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - './website:/var/www/html'
     networks:
@@ -14,17 +14,36 @@ services:
     environment:
       - USERNAME=toto
       - PASSWORD=python
-      - api_ip_or_name=simple_api
-      - port=8000
   simple_api:
     image: 'student:v1'
     container_name: simple_api
     ports:
-      - "8000:5000"
+      - '8000:5000'
     volumes:
       - './simple_api:/data/'
     networks:
-      - api_network 
+      - api_network
+  registry:
+    image: registry:2
+    container_name: registry
+    ports:
+      - '5000:5000'
+    networks:
+      - registry_network
+  docker-registry-ui:
+    image: joxit/docker-registry-ui
+    container_name: registry-frontend
+    ports:
+      - '8090:80'
+    networks:
+      - registry_network
+    environment:
+      - REGISTRY_URL=http://registry:5000
+      - DELETE_IMAGES=true
+      - REGISTRY_TITLE=registry_ui
+      - NGINX_PROXY_PASS_URL=http://registry:5000
+      - SINGLE_REGISTRY=true
+      - CATALOG_ELEMENTS_LIMIT=10
 networks:
   api_network:
-
+  registry_network:
